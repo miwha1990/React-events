@@ -14,6 +14,9 @@ GEO_LOCATION.mySpot = function(position){
 
 GEO_LOCATION.getLocation = function(func, timeout){
     GEO_LOCATION.callback = func;
+    if(typeof(geolocationRequestTimeoutHandler) !== 'undefined'){
+        clearTimeout(window['geolocationRequestTimeoutHandler']);
+    }
     if (navigator.geolocation) {
         this.requestCurrentPosition(this.mySpot, this.errorCallback, this.timeoutCallback, timeout, {maximumAge:10000, timeout:timeout, enableHighAccuracy:true});
     } else {
@@ -30,9 +33,9 @@ GEO_LOCATION.requestCurrentPosition = function(successCB, errorCB, timeoutCB, ti
         timeoutCB();
     }
 
-    if(typeof(geolocationRequestTimeoutHandler) != 'undefined'){
+    // if(typeof(geolocationRequestTimeoutHandler) !== 'undefined'){
         clearTimeout(window['geolocationRequestTimeoutHandler']);
-    }
+    // }
 
     let timeout = timeoutThreshold || 30000;
     window['geolocationRequestTimeoutHandler'] = setTimeout('geolocationTimeoutHandler()', timeout);//set timeout handler

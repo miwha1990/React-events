@@ -8,11 +8,13 @@ import ActionInfo from 'material-ui/svg-icons/action/info';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import CircularProgress from 'material-ui/CircularProgress';
+// import axios from 'axios';
 
 const style = {
     position: 'fixed',
     bottom: 10,
-    marginLeft: -25
+    marginLeft: -25,
+    zIndex: 9999
 };
 
 class ShowEvents extends Component {
@@ -21,7 +23,7 @@ class ShowEvents extends Component {
 
         this.state = {
             app_key: 'fttM848t8nfNDVN6',
-            events: null,
+            venues: null,
             total_items: null,
             current_page: null,
             total_pages: null,
@@ -33,9 +35,11 @@ class ShowEvents extends Component {
     }
 
     componentDidMount() {
+
         Getlocation.getLocation((current_lat,current_lon)=>{
-            this.setState({current_lat,current_lon})
+            this.setState({current_lat,current_lon});
             const prettyLocationUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.current_lat},${this.state.current_lon}&result_type=locality&language=en&key=AIzaSyDNyL3Vz7TjVkCqqJh0m2ShHn8B6iJIJwI`;
+
             const myHeaders = new Headers();
 
             const myInit = { method: 'GET',
@@ -47,20 +51,16 @@ class ShowEvents extends Component {
                 .then(res => res.json())
                 .then(res => {
                     this.setState({location:res.results[0].address_components[0].long_name})
-                    const eventsUrl = `http://api.eventful.com/json/events/search?app_key=${this.state.app_key}&location=${this.state.location}&date=future`;
-                    fetch(eventsUrl, myInit)
+                    const venuesUrl = `http://api.eventful.com/json/venues/search?app_key=${this.state.app_key}&location=${this.state.location}`;
+                    fetch(venuesUrl, myInit)
                         .then(res => res.json())
                         .then(res => {
-                            console.log(res)
-                            if(res.events) {
-                                this.setState({
-                                    events:res.events.event,
-                                    total_items: res.total_items,
-                                    current_page: res.page_number,
-                                    items_per_page: res.page_size
-                                });
-                            }
-
+                             this.setState({
+                                venues:res.venues.venue,
+                                total_items: res.total_items,
+                                current_page: res.page_number,
+                                items_per_page: res.page_size
+                            });
                         });
                 });
 
@@ -88,34 +88,35 @@ class ShowEvents extends Component {
 
     render() {
         let mainOutput = null;
-        if(this.state.events){
+        if(this.state.venues){
             mainOutput =
                 <div>
                     <TextField
                         hintText="Начните писать..."
-                        floatingLabelText="Поиск Ивентов"
+                        floatingLabelText="Поиск Культурных центров"
                     /><br/>
                     <List>
-                        {this.state.events.map(event =>
+                        {this.state.venues.map(venue =>
 
                             <ListItem
-                                key={event.id}
-                                leftAvatar={<Avatar src={event.image? event.image.medium.url:'https://dummyimage.com/128.png/09f/fff'} />}
-                                primaryText={event.title}
-                                secondaryText={this.getDistanceFromLatLonInKm(event.latitude,this.state.current_lat,event.longitude,this.state.current_lon)+' км'}
+                                key={venue.id}
+                                leftAvatar={<Avatar src={(venue.image && venue.image[0])? venue.image.medium.url:'https://dummyimage.com/128.png/09f/fff'} />}
+                                primaryText={venue.name}
+                                secondaryText={this.getDistanceFromLatLonInKm(venue.latitude,this.state.current_lat,venue.longitude,this.state.current_lon)+' км'}
                                 rightIcon={<ActionInfo />}
                             />
 
                         )}
                     </List>
                 </div>
+
         } else {
             mainOutput = <CircularProgress size={80} thickness={7} color="#E91E63"/>
         }
         return (
             <div>
 
-                <div className="main_content">
+                <div>
                     {mainOutput}
                 </div>
                 <Link to="/">

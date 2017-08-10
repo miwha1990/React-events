@@ -4,8 +4,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 //pages and custom components
 import Homepage from './pages/Homepage';
 // import AddEvent from './pages/AddEvent';
+import AddVenue from './pages/AddVenue';
 import ShowEvents from './pages/ShowEvents';
-import SearchEvents from './pages/SearchEvents';
+import ShowVenues from './pages/ShowVenues';
 import NotFound from './pages/NotFound';
 
 class Routes extends Component {
@@ -14,7 +15,8 @@ class Routes extends Component {
             <Switch>
                 <Route exact path='/' component={Homepage}/>
                 <Route path='/events' component={ShowEvents}/>
-                <Route path='/search-events' component={SearchEvents}/>
+                <Route path='/venues' component={ShowVenues}/>
+                <Route path='/add-venue' component={AddVenue}/>
                 <Route path='*' component={NotFound} />
             </Switch>
         );
