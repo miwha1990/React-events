@@ -39,7 +39,12 @@ GEO_LOCATION.requestCurrentPosition = function(successCB, errorCB, timeoutCB, ti
 
     let timeout = timeoutThreshold || 30000;
     window['geolocationRequestTimeoutHandler'] = setTimeout('geolocationTimeoutHandler()', timeout);//set timeout handler
+    /*navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+    function errorCallback(e) {console.log(e)}
 
+    function successCallback(position) {
+       console.log(position)
+    }*/
     GEO_LOCATION.watchID = navigator.geolocation.watchPosition(
         function(position){
             successHandler(position);

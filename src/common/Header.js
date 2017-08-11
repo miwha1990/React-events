@@ -17,7 +17,8 @@ const NavMenu = (props) => (
     >
 
         <MenuItem primaryText={<Link to="/events">Ивенты по близости</Link>} />
-        <MenuItem primaryText={<Link to="/search-events">Поиск Ивентов</Link>}/>
+        <MenuItem primaryText={<Link to="/venues">Культурные центры</Link>} />
+        <MenuItem primaryText={<Link to="/add-venue">Добавить место</Link>}/>
         <MenuItem primaryText={<Link to="/add-event">Создать Ивент</Link>}/>
     </IconMenu>
 );
@@ -34,7 +35,7 @@ class AppHeader extends Component {
         return (
             <div>
                 <AppBar
-                    title="Event-In! - Поиск мероприятий"
+                    title="Поиск мероприятий"
                     iconElementLeft={<span className="logo"><img src='/assets/logo.png' alt='Sample alt'/></span>}
                     iconElementRight={<NavMenu/>}
                 />

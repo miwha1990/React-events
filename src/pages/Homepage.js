@@ -1,6 +1,9 @@
 import React,{ Component } from 'react';
 import {Card} from 'material-ui/Card';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import oauthSignature from 'oauth-signature';
+// import SignatureGenrator from '../oauthSignatureGenerator-master';
 class Homepage extends Component {
     constructor(props) {
         super(props)
@@ -16,20 +19,40 @@ class Homepage extends Component {
             timeStamp: + new Date(),
             consumerKey : 'a57e84727c7443a1e56b',
             consumerSecret: '335d0af5c1aba780e4a1',
-            nonce:'1cdb7f498ba9811513f2'
+            oauthSignature: 'OMcCJ4mfvCsL1HQY%2F51mpikGymY%3D',
+            nonce:'nonce'
         }
-        console.log(requestToken);
-        const requestTokenUrl = `${requestToken.resource}?oauth_callback=${requestToken.callbackUrl}&oauth_consumer_key=${requestToken.consumerKey}&oauth_nonce=${requestToken.nonce}&oauth_signature=8EfteAvDBuE8MTVBABg2WhXnzY0%3D&oauth_signature_method=HMAC-SHA1&oauth_timestamp=${requestToken.timeStamp}&oauth_version=1.0`;
-console.log(requestTokenUrl);
-        const myInit = { method: requestToken.method,
-                        mode: 'cors',
-                        cache: 'default' };
-        fetch(requestTokenUrl, myInit)
+       const url = 'http://photos.example.net/photos',
+            parameters = {
+                oauth_consumer_key : 'a57e84727c7443a1e56b',
+                oauth_nonce : 'nonce',
+                oauth_timestamp : requestToken.timeStamp,
+                oauth_signature_method : 'HMAC-SHA1',
+                oauth_version : '1.0'
+            },
+            consumerSecret = '335d0af5c1aba780e4a1';
+
+        const signature = oauthSignature.generate('POST', requestToken.resource, parameters, consumerSecret);
+        // const anotherSignature = SignatureGenrator('POST', requestToken.resource, parameters, consumerSecret);
+        console.log(signature,'1');
+        // console.log(anotherSignature, '2');
+        const requestTokenUrl = `${requestToken.resource}?oauth_callback=${requestToken.callbackUrl}&oauth_consumer_key=${requestToken.consumerKey}&oauth_nonce=${requestToken.nonce}&oauth_signature=${signature}&oauth_signature_method=HMAC-SHA1&oauth_timestamp=${requestToken.timeStamp}&oauth_version=1.0`;
+
+
+        // const myInit = { method: requestToken.method };
+        axios.post(requestTokenUrl)
+            .then(function (response) {
+                console.log(response)
+            })
+            .catch(function (error) {
+                console.log(error)
+            });
+        /*fetch(requestTokenUrl)
             .then(res => res.json())
             .then(res => {
                 console.log(res)
 
-            });
+            });*/
 
     }
     render() {

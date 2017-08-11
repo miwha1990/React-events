@@ -1,13 +1,23 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Card, CardTitle, CardText} from 'material-ui/Card';
 import SelectField from 'material-ui/SelectField';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ActionHome from 'material-ui/svg-icons/action/home';
 import CircularProgress from 'material-ui/CircularProgress';
 import Snackbar from 'material-ui/Snackbar';
 import MenuItem from 'material-ui/MenuItem';
 import {withRouter} from "react-router-dom";
+
+const style = {
+    position: 'fixed',
+    bottom: 10,
+    marginLeft: -25,
+    right:30
+};
 
 class AddVenue extends React.Component {
     constructor(props) {
@@ -108,8 +118,8 @@ class AddVenue extends React.Component {
         return (
 
             <Card>
-                <CardTitle title="Добавить культурный центр"/>
-                <CardText>
+                <CardTitle title="Добавить культурный центр"  className="form-title"/>
+                <CardText className="form-text">
                     <form onSubmit={this.handleFormSubmit}>
                         <TextField
                             required
@@ -194,6 +204,11 @@ class AddVenue extends React.Component {
                         <RaisedButton label="Подтвердить" secondary={true} disabled={this.state.disabledButton} type="submit"/>{loader}
                     </form>
                 </CardText>
+                <Link to="/">
+                    <FloatingActionButton style={style}>
+                        <ActionHome/>
+                    </FloatingActionButton>
+                </Link>
                 <Snackbar
                     open={this.state.open}
                     message={this.state.message}

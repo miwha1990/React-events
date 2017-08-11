@@ -35,6 +35,7 @@ class ShowEvents extends Component {
     componentDidMount() {
         Getlocation.getLocation((current_lat,current_lon)=>{
             this.setState({current_lat,current_lon})
+            console.log(current_lat, current_lon);
             const prettyLocationUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.current_lat},${this.state.current_lon}&result_type=locality&language=en&key=AIzaSyDNyL3Vz7TjVkCqqJh0m2ShHn8B6iJIJwI`;
             const myHeaders = new Headers();
 
@@ -46,6 +47,7 @@ class ShowEvents extends Component {
             fetch(prettyLocationUrl, myInit)
                 .then(res => res.json())
                 .then(res => {
+                    console.log(res)
                     this.setState({location:res.results[0].address_components[0].long_name})
                     const eventsUrl = `http://api.eventful.com/json/events/search?app_key=${this.state.app_key}&location=${this.state.location}&date=future`;
                     fetch(eventsUrl, myInit)

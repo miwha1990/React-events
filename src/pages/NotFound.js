@@ -21,8 +21,8 @@ class NotFound extends Component {
 
   render() {
     return (
-      <div align='center' justify='center'>
-        <h2 strong={true}>404</h2>
+      <div align='center' >
+        <h2>404</h2>
         <h5>Oops...</h5>
         <p size='large' align='center'>
           It seems that you are in the wrong route. Please check your URL and

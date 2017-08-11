@@ -21,14 +21,14 @@ body{
 }
 
 .logo{
-  width: 150px;
-  height:50px;
+  width: 100px;
   display: block;
   position: relative;
 }
 .logo img{
   width: 100%;
-  height: 100%;
+  height: auto;
+  padding-left: 18px;
 }
 .main-btns-list{
   height: calc(100vh - 64px);
@@ -83,6 +83,10 @@ body{
     width: 85vw;
     height: 19vh;
   }
+  .form-title > span{
+    font-size: 18px !important;
+    line-height: 24px !important;
+  }
 }
 .googleAutocomplete{
   font-size: 16px;
@@ -132,3 +136,9 @@ body{
 
 }
 .my-autocomplete-container{z-index: 999}
+.form-text{
+  padding-top: 0 !important;
+}
+.form-title{
+  padding-bottom:0 !important;
+}
