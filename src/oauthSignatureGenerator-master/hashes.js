@@ -474,9 +474,9 @@
        * Perform a simple self-test to see if the VM is working
        * @return {String} Hexadecimal hash sample
        */
-      this.vm_test = function() {
+      /*this.vm_test = function() {
         return hex('abc').toLowerCase() === '900150983cd24fb0d6963f7d28e17f72';
-      };
+      };*/
       /**
        * Enable/disable uppercase hexadecimal returned string
        * @param {Boolean}
@@ -712,9 +712,9 @@
        * @return {String} Hexadecimal hash sample
        * @public
        */
-      this.vm_test = function() {
+      /*this.vm_test = function() {
         return hex('abc').toLowerCase() === '900150983cd24fb0d6963f7d28e17f72';
-      };
+      };*/
       /**
        * @description Enable/disable uppercase hexadecimal returned string
        * @param {boolean}
@@ -909,9 +909,9 @@
        * @return {String} Hexadecimal hash sample
        * @public
        */
-      this.vm_test = function() {
+      /*this.vm_test = function() {
         return hex('abc').toLowerCase() === '900150983cd24fb0d6963f7d28e17f72';
-      };
+      };*/
       /**
        * Enable/disable uppercase hexadecimal returned string
        * @param {boolean}
@@ -1153,9 +1153,9 @@
        * @return {String} Hexadecimal hash sample
        * @public
        */
-      this.vm_test = function() {
+      /*this.vm_test = function() {
         return hex('abc').toLowerCase() === '900150983cd24fb0d6963f7d28e17f72';
-      };
+      };*/
       /**
        * @description Enable/disable uppercase hexadecimal returned string
        * @param {boolean}
@@ -1558,9 +1558,9 @@
        * @return {String} Hexadecimal hash sample
        * @public
        */
-      this.vm_test = function() {
+      /*this.vm_test = function() {
         return hex('abc').toLowerCase() === '900150983cd24fb0d6963f7d28e17f72';
-      };
+      };*/
       /**
        * @description Enable/disable uppercase hexadecimal returned string
        * @param {boolean}
@@ -1742,13 +1742,7 @@
         window = global;
       }
     }
-
-    if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {
-      // define as an anonymous module, so, through path mapping, it can be aliased
-      define(function() {
-        return Hashes;
-      });
-    } else if (freeExports) {
+ if (freeExports) {
       // in Node.js or RingoJS v0.8.0+
       if (typeof module === 'object' && module && module.exports === freeExports) {
         module.exports = Hashes;

@@ -1,4 +1,3 @@
-'use strict';
 var Hashes = require("./hashes");
 
 function SignatureGenrator(httpMethod, url, parameters, consumerSecret) {
@@ -27,20 +26,20 @@ function SignatureGenrator(httpMethod, url, parameters, consumerSecret) {
     this.parameters.oauth_nonce = this.generateNonce();
 
     this.generateBaseUrl = function (httpMethod, url, parameters) {
-        var httpMethod = httpMethod || this.httpMethod.toUpperCase();
-        var url = url || this.url;
-        var parameters = parameters || this.parameters;
+        var httpMethod2 = httpMethod || this.httpMethod.toUpperCase();
+        var url2 = url || this.url;
+        var parameters2 = parameters || this.parameters;
 
-        var encodeUrl = encodeURIComponent(url);
+        var encodeUrl = encodeURIComponent(url2);
 
         var paramStrList = [],
             paramStr = "";
-        for(var k in parameters) {
-            paramStrList.push(encodeURIComponent(k) + "=" + encodeURIComponent(parameters[k]));
+        for(var k in parameters2) {
+            paramStrList.push(encodeURIComponent(k) + "=" + encodeURIComponent(parameters2[k]));
         }
         paramStr = encodeURIComponent( paramStrList.sort().join("&") );
 
-        return httpMethod + "&" + encodeUrl + "&" + paramStr;
+        return httpMethod2 + "&" + encodeUrl + "&" + paramStr;
     }
 
     this.baseUrl = this.generateBaseUrl();

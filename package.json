@@ -6,6 +6,7 @@
     "axios": "^0.16.2",
     "material-ui": "^0.18.7",
     "muicss": "^0.9.20",
+    "query-string": "^5.0.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-geolocated": "^2.0.0",

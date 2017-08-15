@@ -116,7 +116,7 @@ class ShowEvents extends Component {
         return (
             <div>
 
-                <div>
+                <div className="main_content">
                     {mainOutput}
                 </div>
                 <Link to="/">

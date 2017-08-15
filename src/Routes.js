@@ -7,6 +7,7 @@ import Homepage from './pages/Homepage';
 import AddVenue from './pages/AddVenue';
 import ShowEvents from './pages/ShowEvents';
 import ShowVenues from './pages/ShowVenues';
+import Callack from './common/Callback';
 import NotFound from './pages/NotFound';
 
 class Routes extends Component {
@@ -16,6 +17,7 @@ class Routes extends Component {
                 <Route exact path='/' component={Homepage}/>
                 <Route path='/events' component={ShowEvents}/>
                 <Route path='/venues' component={ShowVenues}/>
+                <Route path='/callback' component={Callack}/>
                 <Route path='/add-venue' component={AddVenue}/>
                 <Route path='*' component={NotFound} />
             </Switch>
