@@ -8,6 +8,7 @@ import ActionInfo from 'material-ui/svg-icons/action/info';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import CircularProgress from 'material-ui/CircularProgress';
+import renderHTML from 'react-render-html';
 // import axios from 'axios';
 
 const style = {
@@ -30,7 +31,8 @@ class ShowEvents extends Component {
             items_per_page: null,
             current_lat:0,
             current_lon:0,
-            location:null
+            location:null,
+            noEvents: false
         };
     }
 
@@ -110,6 +112,8 @@ class ShowEvents extends Component {
                     </List>
                 </div>
 
+        } else if(this.state.noEvents){
+            mainOutput = renderHTML('<h1>Извините, нет культурных центров тут...</h1>')
         } else {
             mainOutput = <CircularProgress size={80} thickness={7} color="#E91E63"/>
         }

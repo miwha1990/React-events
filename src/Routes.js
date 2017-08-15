@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 //pages and custom components
 import Homepage from './pages/Homepage';
-// import AddEvent from './pages/AddEvent';
+import AddEvent from './pages/AddEvent';
 import AddVenue from './pages/AddVenue';
 import ShowEvents from './pages/ShowEvents';
 import ShowVenues from './pages/ShowVenues';
@@ -19,6 +19,7 @@ class Routes extends Component {
                 <Route path='/venues' component={ShowVenues}/>
                 <Route path='/callback' component={Callack}/>
                 <Route path='/add-venue' component={AddVenue}/>
+                <Route path='/add-event' component={AddEvent}/>
                 <Route path='*' component={NotFound} />
             </Switch>
         );
