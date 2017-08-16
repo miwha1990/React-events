@@ -13,10 +13,11 @@ export default {
     appKey(){return 'fttM848t8nfNDVN6'},
 
     requestTokenUrl(){return 'http://eventful.com/oauth/request_token'},
+    accessTokenUrl(){return 'http://eventful.com/oauth/access_token'},
 
-    request_token_params: function(){
+    request_token_params: function(url){
         const vm = this;
-        console.log(vm.consumer());
+
         const oauth = OAuth({
             consumer:vm.consumer(),
             signature_method: 'HMAC-SHA1',
@@ -25,19 +26,18 @@ export default {
             }
         });
         const request_data = {
-            url: this.requestTokenUrl(),
+            url,
             method: 'POST',
             data: {
                 oauth_callback: 'http://localhost:3000/callback'
             }
         };
-        console.log('called');
         return oauth.authorize(request_data);
     },
 
     requestToken() {
 
-        let request_params = this.request_token_params();
+        let request_params = this.request_token_params(this.requestTokenUrl());
         const requestUrl = `${this.requestTokenUrl()}?oauth_callback=${request_params.oauth_callback}&oauth_consumer_key=${request_params.oauth_consumer_key}&oauth_nonce=${request_params.oauth_nonce}&oauth_signature=${request_params.oauth_signature}&oauth_signature_method=HMAC-SHA1&oauth_timestamp=${request_params.oauth_timestamp}&oauth_version=1.0`;
 
         function getQueryVariable(variable, query) {
@@ -50,7 +50,7 @@ export default {
             }
             console.log('Query variable %s not found', variable);
         }
-        const myHeaders = new Headers();
+        let myHeaders = new Headers();
         myHeaders.set('Authorization', 'OAuth oauth_consumer_key="'+this.consumer().key+'",oauth_timestamp="'+request_params.oauth_timestamp+'",oauth_signature_method="HMAC-SHA1",oauth_nonce="'+request_params.oauth_nonce+'",oauth_version="1.0",oauth_signature="'+request_params.oauth_signature+'"');
         myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
 
@@ -70,11 +70,25 @@ export default {
                 console.log(error)
             });
     },
-    accessToken(url) {
-        console.log(url)
+    accessToken(query) {
+
+        const requestParams = this.request_token_params(this.accessTokenUrl());
+        const queryUrl = `oauth_consumer_key=${this.consumer().key}` +
+            `&oauth_nonce=${requestParams.oauth_nonce}` +
+            `&oauth_signature=${decodeURIComponent(requestParams.oauth_signature)}` +
+            `&oauth_signature_method=HMAC-SHA1` +
+            `&oauth_timestamp=${requestParams.oauth_timestamp}` +
+            `&oauth_token=${query['?oauth_token']}` +
+            `&oauth_verifier=${query.oauth_verifier}` +
+            `&oauth_version=1.0`;
+
+        let myHeaders = new Headers();
+        console.log(queryUrl);
+        myHeaders.set('Authorization', 'OAuth oauth_consumer_key="'+this.consumer().key+'",oauth_timestamp="'+requestParams.oauth_timestamp+'",oauth_signature_method="HMAC-SHA1",oauth_nonce="'+requestParams.oauth_nonce+'",oauth_version="1.0",oauth_signature="'+requestParams.oauth_signature+'"');
         axios({
             method: 'post',
-            url: url
+            url: queryUrl,
+            headers: myHeaders
         })
             .then(response => {
                 if( response.statusText ==='OK') {

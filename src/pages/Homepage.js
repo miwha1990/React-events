@@ -16,7 +16,7 @@ class Homepage extends Component {
     }
     componentWillMount() {
         if(!this.state.authorised) {
-            oauthService.requestToken();
+            // oauthService.requestToken();
         }
 
     }

@@ -71,8 +71,9 @@ class AddVenue extends React.Component {
             data.region= places[0].replace(/[ ]/ig, "+");
             data.country = places[1].replace(/[ ]/ig, "+");
         }
-    console.log(this.serialize(data));
-        const url = `http://api.eventful.com/json/venues/new?app_key=${this.state.app_key}&${this.serialize(data)}`;
+
+        const url = `http://api.eventful.com/json/venues/new?app_key=fttM848t8nfNDVN6&oauth_consumer_key=a57e84727c7443a1e56b&oauth_nonce=mynonce&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1502837173&oauth_token=50bee42615522df323d7&oauth_version=1.0&oauth_signature=LNPUw7apl2XOQEwK6HNUxFaDEck%3D&${this.serialize(data)}`;
+        console.log('url', url);
         const myInit = { method: 'GET',
                          mode: 'cors',
                          cache: 'default' };
