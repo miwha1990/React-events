@@ -27,12 +27,13 @@ class AddVenue extends React.Component {
         super(props)
         this.state = {
             venues:null,
-            app_key: 'fttM848t8nfNDVN6',
+            app_key: '3pdkMsPJgb2K8p3b',
             tags:'',
             allDay:false,
             free:true,
             price:null,
             description:'',
+            message:'',
             startTime: null,
             endTime: null,
             open: false,

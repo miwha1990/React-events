@@ -23,7 +23,7 @@ class ShowEvents extends Component {
         super(props);
 
         this.state = {
-            app_key: 'fttM848t8nfNDVN6',
+            app_key: '3pdkMsPJgb2K8p3b',
             venues: null,
             total_items: null,
             current_page: null,
@@ -52,6 +52,7 @@ class ShowEvents extends Component {
             fetch(prettyLocationUrl, myInit)
                 .then(res => res.json())
                 .then(res => {
+
                     this.setState({location:res.results[0].address_components[0].long_name})
                     const venuesUrl = `http://api.eventful.com/json/venues/search?app_key=${this.state.app_key}&location=${this.state.location}`;
                     fetch(venuesUrl, myInit)

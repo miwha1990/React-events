@@ -5,7 +5,7 @@ class Callback extends Component {
     constructor(props) {
         super(props);
         const query = queryString.parse(this.props.location.search);
-        oauthService.accessToken(query)
+        oauthService.accessToken(query);
     }
 
     render() {

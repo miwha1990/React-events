@@ -38,7 +38,7 @@ GEO_LOCATION.requestCurrentPosition = function(successCB, errorCB, timeoutCB, ti
     // }
 
     let timeout = timeoutThreshold || 30000;
-    window['geolocationRequestTimeoutHandler'] = setTimeout('geolocationTimeoutHandler()', timeout);//set timeout handler
+    window['geolocationRequestTimeoutHandler'] = setTimeout(window.geolocationTimeoutHandler, timeout);//set timeout handler
     /*navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
     function errorCallback(e) {console.log(e)}
 
